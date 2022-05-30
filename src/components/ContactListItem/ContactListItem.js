@@ -5,7 +5,7 @@ function Item({contacts,filter,onClick}) {
   return (
     <>
       {contacts
-        .filter((option) => option.name.toLowerCase().includes(filter))
+        .filter((option) => option.name.toLowerCase().includes(filter.toLowerCase()))
         .map((contact) => (
           <li key={contact.name} className={i.item} data-id={contact.name}>
             <p>{contact.name}:</p>
