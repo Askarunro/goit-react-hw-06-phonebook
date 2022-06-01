@@ -1,6 +1,6 @@
 import l from "./Filter.module.css";
 import { useDispatch } from "react-redux";
-import { searchContact } from "..//../redux/store";
+import { searchContact } from "..//../redux/reduce/filter";
 
 function Filter() {
   const dispatch = useDispatch();
