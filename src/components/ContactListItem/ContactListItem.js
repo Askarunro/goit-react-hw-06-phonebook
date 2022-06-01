@@ -1,15 +1,16 @@
 import i from "./ContactListItem.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { remove } from "..//../redux/store";
+import { remove } from "..//../redux/slice/items";
 
 function Item() {
   const dispatch = useDispatch();
   const contacts = useSelector((state) => state.items);
   const filter = useSelector((state) => state.filter);
 
+  console.log(contacts)
   return (
     <>
-      {contacts
+      {contacts.lenght>=0 && (contacts
         .filter((option) =>
           option.name.toLowerCase().includes(filter.toLowerCase())
         )
@@ -23,7 +24,7 @@ function Item() {
               Delete
             </button>
           </li>
-        ))}
+        )))}
     </>
   );
 }
