@@ -1,7 +1,7 @@
 import f from "./ContactForm.module.css";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { add } from "..//../redux/store";
+import { add } from "..//../redux/slice/items";
 
 function Form() {
   const contacts = useSelector((state) => state.items);
@@ -24,11 +24,14 @@ function Form() {
 
   const formSubmitHandler = (data) => {
     let exist = false;
-    contacts.forEach((contact) => {
-      if (contact.name.toLowerCase() === data.name.toLowerCase()) {
-        exist = true;
-      }
-    });
+    console.log(contacts);
+    if (contacts.lenght >= 0) {
+      contacts.forEach((contact) => {
+        if (contact.name.toLowerCase() === data.name.toLowerCase()) {
+          exist = true;
+        }
+      });
+    }
     if (!exist) {
       dispatch(add({ name, number }));
     } else alert(`${data.name} is already i contacts`);
