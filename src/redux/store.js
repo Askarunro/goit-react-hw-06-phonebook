@@ -1,38 +1,26 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { createAction, createReducer, createSlice } from "@reduxjs/toolkit";
+import { itemsSlice } from "./slice/items";
+import { filterReducer } from "./reduce/filter";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
-// export const add = createAction("items/add");
-// export const remove = createAction("items/remove");
-export const searchContact = createAction("filter/searchContact");
+const persistConfig = {
+  key: "root",
+  storage,
+};
 
-const itemsSlice = createSlice({
-  name: "items",
-  initialState: [],
-  reducers: {
-    add(state, action) {
-      return [...state, action.payload];
-    },
-    remove(state, action) {
-      return state.filter((item) => item.name !== action.payload);
-    },
-  },
-});
-
-export const {add,remove}=itemsSlice.actions
-
-const filterReducer = createReducer("", {
-  [searchContact]: (state, action) => (state = action.payload),
-});
+const persistedReducer = persistReducer(persistConfig, itemsSlice.reducer);
 
 export const store = configureStore({
   reducer: {
-    items: itemsSlice.reducer,
+    items: persistedReducer,
     filter: filterReducer,
   },
 });
 
-
-
+export const persistor = persistStore(store);
+// export const add = createAction("items/add");
+// export const remove = createAction("items/remove");
 // const itemsReducer = createReducer([], {
 //   [add]: (state, action) => [...state, action.payload],
 //   [remove]: (state, action) =>
