@@ -1,23 +1,32 @@
 import "./App.css";
 // import { nanoid } from "nanoid";
+// import { useEffect } from "react";
 import ContactForm from "./components/ContactForm";
 import Filter from "./components/Filter";
 import ContactList from "./components/ContactList";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector} from "react-redux";
+// import { add } from "..//src/redux/slice/items";
+
+
 
 function App() {
+  // const dispatch = useDispatch();
+
   const contacts = useSelector((state) => state.items);
-console.log(contacts)
+
   // useEffect(() => {
-  //   if (localStorage.getItem("contacts") !== null) {
+  //   if (localStorage.getItem("contacts").length!==-1) {
   //     const cont = localStorage.getItem("contacts");
   //     const parsedContacts = JSON.parse(cont);
-  //     setContacts([...parsedContacts]);
+  //     console.log(parsedContacts)
+  //     return dispatch(add(parsedContacts))
   //   }
+  //   return
   // }, []);
 
   // useEffect(() => {
   //   localStorage.setItem("contacts", JSON.stringify(contacts));
+  //   console.log('hi')
   // }, [contacts]);
 
   return (
