@@ -1,9 +1,13 @@
 import f from "./ContactForm.module.css";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { add } from "..//../redux/store";
 
-function Form({ onSubmit }) {
+function Form() {
+  const contacts = useSelector((state) => state.items);
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
+  const dispatch = useDispatch();
 
   const onChangeInput = (e) => {
     const { name, value } = e.currentTarget;
@@ -18,6 +22,18 @@ function Form({ onSubmit }) {
     }
   };
 
+  const formSubmitHandler = (data) => {
+    let exist = false;
+    contacts.forEach((contact) => {
+      if (contact.name.toLowerCase() === data.name.toLowerCase()) {
+        exist = true;
+      }
+    });
+    if (!exist) {
+      dispatch(add({ name, number }));
+    } else alert(`${data.name} is already i contacts`);
+  };
+
   const reset = () => {
     setName("");
     setNumber("");
@@ -25,9 +41,10 @@ function Form({ onSubmit }) {
 
   const onSubmitForm = (e) => {
     e.preventDefault();
-    onSubmit({ name, number });
+    formSubmitHandler({ name, number });
     reset();
   };
+
   return (
     <form onSubmit={onSubmitForm} className={f.form}>
       <label className={f.label}>
