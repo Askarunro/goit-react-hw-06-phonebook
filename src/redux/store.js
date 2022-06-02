@@ -1,8 +1,17 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { itemsSlice } from "./slice/items";
 import { filterReducer } from "./reduce/filter";
-import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist";
 
 const persistConfig = {
   key: "root",
@@ -16,9 +25,16 @@ export const store = configureStore({
     items: persistedReducer,
     filter: filterReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
 });
 
 export const persistor = persistStore(store);
+
 // export const add = createAction("items/add");
 // export const remove = createAction("items/remove");
 // const itemsReducer = createReducer([], {
