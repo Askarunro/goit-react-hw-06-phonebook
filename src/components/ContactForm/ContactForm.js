@@ -24,10 +24,8 @@ function Form() {
 
   const formSubmitHandler = (data) => {
     let exist = false;
-
     if (contacts.length >= 0) {
       contacts.forEach((contact) => {
-
         if (contact.name.toLowerCase() === data.name.toLowerCase()) {
           exist = true;
         }
