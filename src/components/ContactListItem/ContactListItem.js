@@ -4,13 +4,12 @@ import { remove } from "..//../redux/slice/items";
 
 function Item() {
   const dispatch = useDispatch();
-  const contacts = useSelector((state) => state.items);
+  const contacts = useSelector((state) => state.items.contacts);
   const filter = useSelector((state) => state.filter);
 
-  console.log(contacts)
   return (
     <>
-      {contacts.lenght>=0 && (contacts
+      {contacts && (contacts
         .filter((option) =>
           option.name.toLowerCase().includes(filter.toLowerCase())
         )
